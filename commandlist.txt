@@ -1,0 +1,9 @@
+// gcc -O0 pi-sec.c -o pi-sec // use this for debugging
+// gcc -O2 pi-sec.c -o pi-sec // use this for float
+// gcc -O3 pi-sec.c -o pi-sec
+// time ./pi-sec
+
+// gcc -fopenmp FirstOMPProg-OMP.c -o FirstOMPProg-OMP 
+
+// gcc FirstProg.c -o FirstProg
+// ./FirstProg
