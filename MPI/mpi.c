@@ -14,3 +14,5 @@ int main(int argc, char** argv) {
 }
 
 // mpicc mpi.c -o mpi
+// mpirun -np 4 mpi
+// man mpirun
