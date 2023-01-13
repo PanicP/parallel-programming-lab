@@ -6,7 +6,7 @@ int main(int argc, char **argv)
 {
     int size;
     int rank;
-    int Left, Right, buffer, sum;
+    int Left, Right, buffer, buffer2, sum;
     double start = 0;
     MPI_Init(NULL, NULL);
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     MPI_Request req;
 
     for(int i = 0; i < size; i++) {
-        MPI_Issend(buffer, 1, MPI_INT, Right, 123, MPI_COMM_WORLD, &req);
+        MPI_Issend(&buffer, 1, MPI_INT, Right, 123, MPI_COMM_WORLD, &req);
         MPI_Recv(&buffer2, 1, MPI_INT, Left, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         sum += buffer2;
         MPI_Wait(&req, MPI_STATUS_IGNORE);
