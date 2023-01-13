@@ -15,45 +15,41 @@ int main(int argc, char **argv)
     Left = (rank + size - 1) % size;
     Right = (rank + 1) % size;
     // Code here
-    // if (rank < size - 2)
-    // {
-    //     MPI_Ssend(&r, 1, MPI_INT, rank + 1, 123, MPI_COMM_WORLD);
-    // }
-    // if (rank >= 0)
-    // {
-    //     MPI_Recv(&r, 1, MPI_INT, MPI_ANY_SOURCE, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    // }
-    // for (int i = 0; i < size - 2; i++)
-    // {
 
-    //     MPI_Ssend(99, 1, MPI_INT, i, 123, MPI_COMM_WORLD);
-    // }
-
-    // for (int i = size - 1; i >= 0; i--)
+    // if (rank == 0)
     // {
-    //     MPI_Recv(&r, 1, MPI_INT, MPI_ANY_SOURCE, 234, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    //     print("Rank %d, Value %d\n", rank, val)
+    //     MPI_Ssend(&rank, 1, MPI_INT, Right, 123, MPI_COMM_WORLD);
+    //     MPI_Recv(&buffer, 1, MPI_INT, Left, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
+    //     sum += buffer;
+    //     // Send
+    //     MPI_Ssend(&sum, 1, MPI_INT, Right, 234, MPI_COMM_WORLD);
+    //     MPI_Recv(&buffer, 1, MPI_INT, Left, 234, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
     // }
-    if (rank == 0)
-    {
-        MPI_Ssend(&rank, 1, MPI_INT, Right, 123, MPI_COMM_WORLD);
-        MPI_Recv(&buffer, 1, MPI_INT, Left, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    // else
+    // {
+    //     sum = rank;
+    //     MPI_Recv(&buffer, 1, MPI_INT, Left, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    //     sum += buffer;
+    //     MPI_Ssend(&sum, 1, MPI_INT, Right, 123, MPI_COMM_WORLD);
 
-        sum += buffer;
-        // Send
-        MPI_Ssend(&sum, 1, MPI_INT, Right, 234, MPI_COMM_WORLD);
-        MPI_Recv(&buffer, 1, MPI_INT, Left, 234, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-    }
-    else
-    {
-        sum = rank;
-        MPI_Recv(&buffer, 1, MPI_INT, Left, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        sum += buffer;
-        MPI_Ssend(&sum, 1, MPI_INT, Right, 123, MPI_COMM_WORLD);
+    //     // Recv
+    //     MPI_Recv(&sum, 1, MPI_INT, Left, 234, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    //     MPI_Ssend(&sum, 1, MPI_INT, Right, 234, MPI_COMM_WORLD);
+    // }
 
-        // Recv
-        MPI_Recv(&sum, 1, MPI_INT, Left, 234, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        MPI_Ssend(&sum, 1, MPI_INT, Right, 234, MPI_COMM_WORLD);
+    // alternative
+
+    buffer = rank;
+    sum += buffer;
+    MPI_Request req;
+
+    for(int i = 0; i < size; i++) {
+        MPI_Issend(buffer, 1, MPI_INT, Right, 123, MPI_COMM_WORLD, &req);
+        MPI_Recv(&buffer2, 1, MPI_INT, Left, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        sum += buffer2;
+        MPI_Wait(&req, MPI_STATUS_IGNORE);
+        buffer = buffer2;
     }
 
     double end = MPI_Wtime();
