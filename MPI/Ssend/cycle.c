@@ -44,7 +44,8 @@ int main(int argc, char **argv)
     sum += buffer;
     MPI_Request req;
 
-    for(int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++)
+    {
         MPI_Issend(&buffer, 1, MPI_INT, Right, 123, MPI_COMM_WORLD, &req);
         MPI_Recv(&buffer2, 1, MPI_INT, Left, 123, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         sum += buffer2;
@@ -56,7 +57,7 @@ int main(int argc, char **argv)
     if (rank == 0)
         printf("Required time: %lf\n", (end - start));
 
-     printf("rank: %d, sum: %d\n", rank, sum);
+    printf("rank: %d, sum: %d\n", rank, sum);
 
     MPI_Finalize();
     return 0;
