@@ -9,21 +9,21 @@ int main(int argc, char **argv)
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    char charToWritten = '0' + rank;
+    char charToWrite = '0' + rank;
 
     // Open File
     MPI_File fh;
-    MPI_File_open(MPI_COMM_WORLD, "test.out", MPI_MODE_CREATE | MPI_MODE_WRONLY, MPI_INFO_NULL, &fh);
+    MPI_File_open(MPI_COMM_WORLD, "myfile.txt", MPI_MODE_CREATE | MPI_MODE_WRONLY, MPI_INFO_NULL, &fh);
 
     // Calculate displacement (offset from the begining)
-    int displacement = 6 * sizeof(int);
+    int displacement = rank;
 
     // Calculate offset (jump to next position)
-    int offset = 5 * sizeof(int);
+    int offset = size-1;
 
     for (int i = 0; i < 5; i++)
     {
-        MPI_File_write_at(&fh, offset, displacement, count, );
+        MPI_File_write_at(fh, (offset*i)+rank, &charToWrite, 1, MPI_CHAR, MPI_STATUS_IGNORE);
         // write to file AT correct position
     }
 
@@ -33,3 +33,6 @@ int main(int argc, char **argv)
     MPI_Finalize();
     return 0;
 }
+
+// mpicc mpi_io.c -o mpi_io
+// mpirun -np 8 ./mpi_io
