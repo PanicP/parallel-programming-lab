@@ -7,3 +7,8 @@
 
 // gcc FirstProg.c -o FirstProg
 // ./FirstProg
+
+// mpicc mpi_bcast.c -o mpi_bcast
+// mpirun -np 8 ./mpi_bcast
+
+ mpirun -np 300 --machinefile hostfile.txt --oversubscribe mpi_manual
