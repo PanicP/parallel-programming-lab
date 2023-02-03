@@ -1,0 +1,7 @@
+❯ rustc -C opt-level=2 funcPi.rs
+❯ time ./funcPi                 
+❯ ./funcPi 
+
+> cargo build / cargo run
+❯ ./target/release/rust            
+> time ./target/release/rust   

@@ -1,3 +1,5 @@
+// ########## OpenMP ##########
+
 // gcc -O0 pi-sec.c -o pi-sec // use this for debugging
 // gcc -O2 pi-sec.c -o pi-sec // use this for float
 // gcc -O3 pi-sec.c -o pi-sec
@@ -10,9 +12,11 @@
 
 
 
+// ########## MPI ##########
+
 // mpicc mpi.c -o mpi
 // mpirun -np 4 mpi
 // man mpirun
 
-mpicc mpi_pingpong.c -o mpi_pingpong
-mpirun -np 4 --machinefile hostfile.txt --oversubscribe mpi_pingpong
+// mpicc mpi_pingpong.c -o mpi_pingpong
+// mpirun -np 4 --machinefile hostfile.txt --oversubscribe mpi_pingpong
