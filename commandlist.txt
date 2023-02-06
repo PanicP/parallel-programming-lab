@@ -5,6 +5,7 @@
 // gcc -O3 pi-sec.c -o pi-sec
 // time ./pi-sec
 
+// /opt/homebrew/bin/gcc-12 -fopenmp pisecomp.c -o pisecomp // for macos using brew to install gcc separately
 // gcc -fopenmp FirstOMPProg-OMP.c -o FirstOMPProg-OMP 
 
 // gcc FirstProg.c -o FirstProg
