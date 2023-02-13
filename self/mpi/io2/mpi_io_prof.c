@@ -20,12 +20,11 @@ int main(int argc, char **argv)
                   MPI_INFO_NULL,
                   &fh);
 
-    MPI_Datatype elementType = MPI_CHAR;
     int ndims = 1;
     int array_of_sizes[1] = {size};
     int array_of_subsizes[1] = {1};
     int array_of_starts[1] = {rank};
-
+    MPI_Datatype elementType = MPI_CHAR;
     MPI_Datatype filetype;
 
     MPI_Type_create_subarray(ndims, array_of_sizes, array_of_subsizes, array_of_starts, MPI_ORDER_C, elementType, &filetype);
